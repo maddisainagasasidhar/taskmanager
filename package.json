@@ -4,6 +4,7 @@
   "description": "A Simple App to manage all Tasks",
   "main": "index.js",
   "scripts": {
+    "start":"node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
