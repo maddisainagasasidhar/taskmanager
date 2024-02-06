@@ -1,5 +1,6 @@
 const fs = require('fs');
 let tasks = require('../../data/tasks.json');
+const Validator = require('../helpers/validator.js');
 class Task {
     static createTask (inputTask) {
         inputTask.id = tasks.length + 1;
@@ -26,9 +27,14 @@ class Task {
 
     static updateTaskById(id, data) {
         let task = this.getTaskById(id);
-        let response = {statusCode:422,details:""};
+        let validationCheck = Validator.dataTypecheck(data);
+        let response = {statusCode:404,details:""};
         if (!task.status) {
             response.details = "Enter a valid id";
+            return response;
+        } else if(!validationCheck.passed) {
+            response.statusCode = 400;
+            response.details = validationCheck.error;
             return response;
         } else {
             for (let i=0; i<tasks.length; i++) {
@@ -54,7 +60,7 @@ class Task {
     
     static deleteTaskById(id) {
         let task = this.getTaskById(id);
-        let response = {statusCode:422,details:""};
+        let response = {statusCode:404,details:""};
         if (!task.status) {
             response.details = "Enter a valid id";
             return response;

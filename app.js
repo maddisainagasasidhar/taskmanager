@@ -25,16 +25,16 @@ app.get('/Tasks', (req, res) => {
 app.get('/Tasks/:id', (req, res) => {
     let response = Task.getTaskById(req.params.id);
     if (!response.status) {
-        return  res.status(422).send("Enter a valid id");
+        return  res.status(404).send("Enter a valid id");
     } else {
-        return  res.status(200).json(getTask.data);
+        return  res.status(200).json(response.data);
     }
 });
 
 app.post('/Tasks', (req, res) => {
     let validationCheck = Validator.validateTasks(req.body);
     if (!validationCheck.passed){
-        return res.status(422).send(validationCheck.error);
+        return res.status(400).send(validationCheck.error);
     } else {
         let taskCreationStatus = Task.createTask(req.body);
         if (!taskCreationStatus) {
@@ -54,3 +54,5 @@ app.delete('/Tasks/:id', (req, res) => {
     let response = Task.deleteTaskById(req.params.id, req.body);
     return  res.status(response.statusCode).json(response.details);
 });
+
+module.exports = app;
