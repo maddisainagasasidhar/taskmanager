@@ -85,6 +85,20 @@ class Task {
         });
         return data;
     }
+
+    static getATasksByCompletionStatus(completed) {
+        let status;
+        if (completed === 'true') {
+            status = true;
+        } 
+        if (completed === 'false') {
+            status = false;
+        }
+        let data = tasks.filter(function(task) {
+            return task.completed == status;
+        })
+        return data;
+    }
 }
 
 module.exports = Task;

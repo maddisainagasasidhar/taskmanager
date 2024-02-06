@@ -19,7 +19,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/tasks', (req, res) => {
-    return  res.status(200).json(Task.getAllTasks());
+    if (req.query.completed) {
+        return  res.status(200).json(Task.getATasksByCompletionStatus(req.query.completed));
+    } else {
+        return  res.status(200).json(Task.getAllTasks());
+    }
 });
 
 app.get('/tasks/:id', (req, res) => {
