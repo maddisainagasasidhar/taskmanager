@@ -4,7 +4,7 @@ const Validator = require('../helpers/validator.js');
 class Task {
     static createTask (inputTask) {
         let response = {statusCode:422, details:""};
-        let validationCheck = Validator.validateTasks(inputTask);
+        let validationCheck = Validator.mandatoryFieldCheck(inputTask);
         if (!validationCheck.passed){
             response.statusCode = 400;
             response.details = validationCheck.error;
@@ -14,6 +14,7 @@ class Task {
             tasks.push(inputTask);
             fs.writeFileSync('data/tasks.json', JSON.stringify(tasks,null,4), {encoding: 'utf8', flag: 'w'});
             response.statusCode = 201;
+            response.details = "Task created successfully.";
             return response;
         }
     }
@@ -39,7 +40,7 @@ class Task {
         let validationCheck = Validator.dataTypecheck(data);
         let response = {statusCode:404,details:""};
         if (!task.status) {
-            response.details = "Enter a valid id";
+            response.details = "Enter a valid task id";
             return response;
         } else if(!validationCheck.passed) {
             response.statusCode = 400;
@@ -71,7 +72,7 @@ class Task {
         let task = this.getTaskById(id);
         let response = {statusCode:404,details:""};
         if (!task.status) {
-            response.details = "Enter a valid id";
+            response.details = "Enter a valid task id";
             return response;
         } else {
             for (let i=0; i<tasks.length; i++) {
