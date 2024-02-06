@@ -17,7 +17,7 @@ In this project, we created a RESTful API using Node.js, Express.js, and NPM pac
 Allowing users to assign a priority level (e.g., low, medium, high) to each task. Updated the API to support this new attribute in task creation, updates, and retrieval.
 > - **GET /tasks/priority/:level.**: now user can retrieve tasks based on priority level <br>
 
-Implemented filtering and sorting for the GET /tasks endpoint. For example, users should be able to filter tasks based on completion status and sort them by creation date. 
+Implemented filtering and sorting for the GET /tasks endpoint. For example, users can be able to filter tasks based on completion status and sort them by creation date. 
 > - **GET tasks?sort=ASC** will return the tasks in ascending order based on the creation date **sort=DESC** for descending order
 > - **GET tasks?completed=true**  will filter tasks based on completion status
 > - **GET tasks?completed=true&sort=ASC** will filter tasks based on completion status and sort them in ascending order or vice versa
