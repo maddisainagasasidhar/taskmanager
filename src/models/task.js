@@ -49,20 +49,11 @@ class Task {
         } else {
             for (let i=0; i<tasks.length; i++) {
                 if (tasks[i].id == id) {
-                    if(data.hasOwnProperty("completed")) {
-                        tasks[i].completed = data.completed;
-                    } 
-                    if(data.hasOwnProperty("description")) {
-                        tasks[i].description = data.description;
-                    } 
-                    if(data.hasOwnProperty("title")) {
-                        tasks[i].title = data.title;
-                        break;
-                    }
+                    Object.assign(tasks[i],data);
                 }
             }
             fs.writeFileSync('data/tasks.json', JSON.stringify(tasks,null,4), {encoding: 'utf8', flag: 'w'});
-            response.details = "Task Updated";
+            response.details = "Task Updated Sucessfully";
             response.statusCode = 200;
             return response;
         }
@@ -86,6 +77,13 @@ class Task {
             response.statusCode = 200;
             return response;
         }
+    }
+
+    static getTaskByPriority(priority) {
+        let data = tasks.filter(function(task) {
+            return task.priority === priority;
+        });
+        return data;
     }
 }
 

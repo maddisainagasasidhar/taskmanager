@@ -18,11 +18,11 @@ app.get('/', (req, res) => {
     return res.status(200).send("Welcome to Task Manager App");
 })
 
-app.get('/Tasks', (req, res) => {
+app.get('/tasks', (req, res) => {
     return  res.status(200).json(Task.getAllTasks());
 });
 
-app.get('/Tasks/:id', (req, res) => {
+app.get('/tasks/:id', (req, res) => {
     let response = Task.getTaskById(req.params.id);
     if (!response.status) {
         return  res.status(404).send("Enter a valid task id");
@@ -31,19 +31,24 @@ app.get('/Tasks/:id', (req, res) => {
     }
 });
 
-app.post('/Tasks', (req, res) => {
+app.post('/tasks', (req, res) => {
     let response = Task.createTask(req.body);;
     return  res.status(response.statusCode).json(response.details);
 });
 
-app.put('/Tasks/:id', (req, res) => {
+app.put('/tasks/:id', (req, res) => {
     let response = Task.updateTaskById(req.params.id, req.body);
     return  res.status(response.statusCode).json(response.details);
 });
 
-app.delete('/Tasks/:id', (req, res) => {
+app.delete('/tasks/:id', (req, res) => {
     let response = Task.deleteTaskById(req.params.id, req.body);
     return  res.status(response.statusCode).json(response.details);
+});
+
+app.get('/tasks/priority/:level', (req, res) => {
+    let response = Task.getTaskByPriority(req.params.level);
+    return  res.status(200).json(response);
 });
 
 module.exports = app;
