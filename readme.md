@@ -8,8 +8,8 @@ In this project, we created a RESTful API using Node.js, Express.js, and NPM pac
 > 4. Run **npm run start** for starting the application
 
 **App is ready to explore please use the below endpoints for using the app** 
-> **GET /tasks**: Retrieve all tasks. 
-> **GET /tasks/:id**: Retrieve a single task by its ID.
-> **POST /tasks**: Create a new task.
-> **PUT /tasks/:id**: Update an existing task by its ID.
-> **DELETE /tasks/:id**: Delete a task by its ID.
+> - **GET /tasks**: Retrieve all tasks. 
+> - **GET /tasks/:id**: Retrieve a single task by its ID.
+> - **POST /tasks**: Create a new task.
+> - **PUT /tasks/:id**: Update an existing task by its ID.
+> - **DELETE /tasks/:id**: Delete a task by its ID.
