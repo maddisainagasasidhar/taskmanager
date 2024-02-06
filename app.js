@@ -19,9 +19,16 @@ app.get('/', (req, res) => {
 })
 
 app.get('/tasks', (req, res) => {
+    if (req.query.completed && req.query.sort) {
+        return  res.status(200).json(Task.getCompletionStatusAndSort(req.query.completed,req.query.sort));
+    }
     if (req.query.completed) {
         return  res.status(200).json(Task.getATasksByCompletionStatus(req.query.completed));
-    } else {
+    } 
+    if (req.query.sort) {
+        return  res.status(200).json(Task.getATasksBySort(req.query.sort));
+    }
+    else {
         return  res.status(200).json(Task.getAllTasks());
     }
 });

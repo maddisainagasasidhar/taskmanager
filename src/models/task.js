@@ -99,6 +99,27 @@ class Task {
         })
         return data;
     }
+
+    static getATasksBySort(sort) {
+        tasks.sort((a,b) => {
+            return a.id - b.id;
+        });
+        if (sort === 'DESC') {
+            return tasks.reverse();
+        }
+        return tasks;
+    }
+    
+    static getCompletionStatusAndSort(completion, sort) {
+        let data = this.getATasksByCompletionStatus(completion);
+        data.sort((a,b) => {
+            return a.id - b.id;
+        });
+        if (sort === 'DESC') {
+            return tasks.reverse();
+        }
+        return data;
+    }
 }
 
 module.exports = Task;
