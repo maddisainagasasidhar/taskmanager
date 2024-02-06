@@ -1,5 +1,5 @@
 # Task Manager API 📝
-#### About the API
+### About the API
 In this project, we created a RESTful API using Node.js, Express.js, and NPM packages. The API will allow users to perform CRUD operations (Create, Read, Update, and Delete) on tasks. The tasks have a title, description, and a flag for completion status
 > #### Steps to start the application
 > 1. Clone this Project and Navigate to root directory
@@ -13,7 +13,7 @@ In this project, we created a RESTful API using Node.js, Express.js, and NPM pac
 > - **POST /tasks**: Create a new task.
 > - **PUT /tasks/:id**: Update an existing task by its ID.
 > - **DELETE /tasks/:id**: Delete a task by its ID.
-#### Extensions Added
+### Extensions Added
 Allowing users to assign a priority level (e.g., low, medium, high) to each task. Updated the API to support this new attribute in task creation, updates, and retrieval.
 > - **GET /tasks/priority/:level.**: now user can retrieve tasks based on priority level <br>
 
