@@ -32,17 +32,8 @@ app.get('/Tasks/:id', (req, res) => {
 });
 
 app.post('/Tasks', (req, res) => {
-    let validationCheck = Validator.validateTasks(req.body);
-    if (!validationCheck.passed){
-        return res.status(400).send(validationCheck.error);
-    } else {
-        let taskCreationStatus = Task.createTask(req.body);
-        if (!taskCreationStatus) {
-            return res.status(500).send("Something went wrong while writing the course to the file, please try recreating the course");
-        } else {
-            return res.status(201).send("Course has been successfuly validated and created");
-        }
-    }
+    let response = Task.createTask(req.body);;
+    return  res.status(response.statusCode).json(response.details);
 });
 
 app.put('/Tasks/:id', (req, res) => {

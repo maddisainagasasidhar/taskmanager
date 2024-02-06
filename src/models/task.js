@@ -3,10 +3,19 @@ let tasks = require('../../data/tasks.json');
 const Validator = require('../helpers/validator.js');
 class Task {
     static createTask (inputTask) {
-        inputTask.id = tasks.length + 1;
-        tasks.push(inputTask);
-        fs.writeFileSync('data/tasks.json', JSON.stringify(tasks,null,4), {encoding: 'utf8', flag: 'w'});
-        return true
+        let response = {statusCode:422, details:""};
+        let validationCheck = Validator.validateTasks(inputTask);
+        if (!validationCheck.passed){
+            response.statusCode = 400;
+            response.details = validationCheck.error;
+            return response;
+        } else {
+            inputTask.id = tasks.length + 1;
+            tasks.push(inputTask);
+            fs.writeFileSync('data/tasks.json', JSON.stringify(tasks,null,4), {encoding: 'utf8', flag: 'w'});
+            response.statusCode = 201;
+            return response;
+        }
     }
 
     static getTaskById(id) {
