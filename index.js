@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
-let taskData = require('./data/tasks.json');
 const Task = require('./src/models/task.js');
+const Validator = require('./src/helpers/validator.js');
+
 app.use(express.json());
 
 app.listen(PORT,(err)=>{
@@ -18,19 +19,22 @@ app.get('/', (req, res) => {
 })
 
 app.get('/Tasks', (req, res) => {
-    return  res.status(200).json(taskData);
+    return  res.status(200).json(Task.getAllTasks());
 });
 
 app.get('/Tasks/:id', (req, res) => {
-    let taskData = JSON.stringify(tasks,null,4);
-    return  res.status(200).json(taskData);
+    let response = Task.getTaskById(req.params.id);
+    if (!response.status) {
+        return  res.status(422).send("Enter a valid id");
+    } else {
+        return  res.status(200).json(getTask.data);
+    }
 });
 
 app.post('/Tasks', (req, res) => {
-    if (!req.body.title) {
-        return  res.status(422).send("Title is a mandatory field,Enter the Task title");
-    } else if (!req.body.description) {
-        return  res.status(422).send("Description is a mandatory field,Enter the Task Description");
+    let validationCheck = Validator.validateTasks(req.body);
+    if (!validationCheck.passed){
+        return res.status(422).send(validationCheck.error);
     } else {
         let taskCreationStatus = Task.createTask(req.body);
         if (!taskCreationStatus) {
@@ -38,16 +42,15 @@ app.post('/Tasks', (req, res) => {
         } else {
             return res.status(201).send("Course has been successfuly validated and created");
         }
-        // if (Validatior.validateTasks(req.body)) {
-
-        // } 
     }
 });
 
 app.put('/Tasks/:id', (req, res) => {
-    return  res.status(200).json(tasks);
+    let response = Task.updateTaskById(req.params.id, req.body);
+    return  res.status(response.statusCode).json(response.details);
 });
 
 app.delete('/Tasks/:id', (req, res) => {
-    return  res.status(200).json(tasks);
+    let response = Task.deleteTaskById(req.params.id, req.body);
+    return  res.status(response.statusCode).json(response.details);
 });
